@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import ReactGA from "react-ga4";
 import { createRoot } from "react-dom/client";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import jsPDF from "jspdf";
@@ -172,6 +173,12 @@ function App() {
       .replace(/^-|-$/g, "")
       .toLowerCase();
 
+    ReactGA.event({
+      category: "PDF",
+      action: "download",
+      label: "Visa Undertaking Form"
+    });
+
     doc.save(`visa-undertaking-form-${safeName || "applicant"}.pdf`);
   }
 
@@ -337,6 +344,12 @@ function App() {
       </footer>
     </div>
   );
+}
+
+const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+
+if (measurementId) {
+  ReactGA.initialize(measurementId);
 }
 
 createRoot(document.getElementById("root")).render(
