@@ -16,7 +16,8 @@ const initialForm = {
   arrivalDate: "",
   departureDate: "",
   returnCountry: "",
-  signedDate: ""
+  signatureName: "",
+  signedDate: new Date().toISOString().slice(0, 10)
 };
 
 function formatDate(value) {
@@ -263,6 +264,10 @@ function App() {
           <h2>Signature</h2>
 
           <div>
+            <label>
+              Applicant Name for Signature
+              <input value={form.signatureName} onChange={e => update("signatureName", e.target.value)} placeholder="Type your name" />
+            </label>
             <label>
               Date
               <input type="date" value={form.signedDate} onChange={e => update("signedDate", e.target.value)} />
